@@ -3,11 +3,10 @@ package main
 import (
 	"bytes"
 	"encoding/json"
-	//"io"
 	"fmt"
 	"github.com/go-chi/chi/v5"
-	"net/http"
 	"log"
+	"net/http"
 )
 
 type Task struct {
@@ -55,10 +54,9 @@ func getTasks(w http.ResponseWriter, r *http.Request) {
 	// так как все успешно, то статус OK
 	w.WriteHeader(http.StatusOK)
 	// записываем сериализованные в JSON данные в тело ответа
-	if _,err:=w.Write(resp);err!=nil{
+	if _, err := w.Write(resp); err != nil {
 		log.Println(err)
 	}
-	
 
 }
 
@@ -84,7 +82,7 @@ func postTasks(w http.ResponseWriter, r *http.Request) {
 }
 
 func getTask(w http.ResponseWriter, r *http.Request) {
-    id := chi.URLParam(r, "id")
+	id := chi.URLParam(r, "id")
 
 	task, ok := tasks[id]
 	if !ok {
@@ -100,12 +98,12 @@ func getTask(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-	if _,err:=w.Write(resp);err!=nil{
+	if _, err := w.Write(resp); err != nil {
 		log.Println(err)
 	}
 }
 
-func delTask (w http.ResponseWriter, r *http.Request) {
+func delTask(w http.ResponseWriter, r *http.Request) {
 	// Получаем ID задачи из URL
 	id := chi.URLParam(r, "id")
 
